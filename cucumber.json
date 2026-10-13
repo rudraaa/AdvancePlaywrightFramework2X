@@ -5,7 +5,7 @@
             "src/cucumber/support/*.ts",
             "src/cucumber/**/steps/**/*.ts"
         ],
-        "format": ["progress-bar"],
+        "format": ["progress-bar", "./src/utils/CucumberTtaReporter.ts"],
         "publishQuiet": true,
         "paths": ["src/cucumber/**/features/**/*.feature"]
     },
@@ -15,6 +15,7 @@
             "src/cucumber/support/*.ts",
             "src/cucumber/**/steps/**/*.ts"
         ],
+        "format": ["progress-bar", "./src/utils/CucumberTtaReporter.ts"],
         "paths": ["src/cucumber/level-0*/features/**/*.feature"]
     },
     "level1": {
@@ -23,6 +24,7 @@
             "src/cucumber/support/*.ts",
             "src/cucumber/**/steps/**/*.ts"
         ],
+        "format": ["progress-bar", "./src/utils/CucumberTtaReporter.ts"],
         "paths": ["src/cucumber/level-01*/features/**/*.feature"]
     },
     "level2": {
@@ -31,6 +33,7 @@
             "src/cucumber/support/*.ts",
             "src/cucumber/**/steps/**/*.ts"
         ],
+        "format": ["progress-bar", "./src/utils/CucumberTtaReporter.ts"],
         "paths": ["src/cucumber/level-02*/features/**/*.feature"]
     },
 
@@ -40,6 +43,7 @@
             "src/cucumber/support/*.ts",
             "src/cucumber/**/steps/**/*.ts"
         ],
+        "format": ["progress-bar", "./src/utils/CucumberTtaReporter.ts"],
         "paths": ["src/cucumber/level-02*/features/**/*.feature"]
     }
 }

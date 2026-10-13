@@ -29,7 +29,8 @@
     "cucumber:level1": "cucumber-js --profile level1",
     "cucumber:level2": "cucumber-js --profile level2",
     "cucumber:datatable": "cucumber-js --profile datatable",
-    "cucumber:headed": "HEADED=1 cucumber-js"
+    "cucumber:headed": "HEADED=1 cucumber-js",
+    "report:cucumber": "start \"\" tta-report/cucumber/index.html"
   },
   "keywords": [],
   "author": "",

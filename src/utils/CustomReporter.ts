@@ -3,7 +3,6 @@
  * @author Pramod Dutta
  * @website https://thetestingacademy.com
  * @version 1.0.0
- * @license : MIT
  * @description Custom HTML Reporter for Playwright Test Automation Framework
  */
 
@@ -81,7 +80,6 @@ class CustomTTAReporter implements Reporter {
     private testStartTimeMap: Map<string, number> = new Map();
     private testStepCounterMap: Map<string, number> = new Map();
     private testCounter: number = 0;
-    private testIndexMap: Map<string, number> = new Map();
     private runningTests: Map<string, TestData> = new Map();
     private completedTestIds: Set<string> = new Set();
 
@@ -118,9 +116,6 @@ class CustomTTAReporter implements Reporter {
         this.testStartTimeMap.set(test.id, Date.now());
         this.testStepCounterMap.set(test.id, 0);
         this.testCounter++;
-        // Snapshot this test's index now — with parallel workers, testCounter keeps
-        // advancing as other tests begin, so reading it in onTestEnd collides artifacts.
-        this.testIndexMap.set(test.id, this.testCounter);
 
         const testFile = test.location.file.split('/').pop() || '';
         console.log(`\n▶️  STARTING: ${test.title}`);
@@ -229,10 +224,6 @@ class CustomTTAReporter implements Reporter {
         }
         console.log(`\n   📊 Running Total: ✅ ${this.suiteStats.passed} | ❌ ${this.suiteStats.failed} | ⏭️ ${this.suiteStats.skipped}`);
 
-        const testIndex = this.testIndexMap.get(test.id) ?? ++this.testCounter;
-        // Retries reuse test.id — suffix them so attempt N doesn't clobber attempt N-1.
-        const artifactId = result.retry > 0 ? `${testIndex}r${result.retry}` : `${testIndex}`;
-
         const currentTestSteps = this.testStepsMap.get(test.id) || [];
         const testLogs = this.collectTestLogs(result);
         this.associateLogsWithSteps(test, result, currentTestSteps, testLogs);
@@ -244,7 +235,7 @@ class CustomTTAReporter implements Reporter {
 
         for (const attachment of result.attachments) {
             if (attachment.contentType === 'image/png') {
-                const screenshotName = `screenshot_${artifactId}_${screenshots.length + 1}.png`;
+                const screenshotName = `screenshot_${this.testCounter}_${screenshots.length + 1}.png`;
                 const destPath = path.join('tta-report', 'screenshots', screenshotName);
                 const destDir = path.dirname(destPath);
                 if (!fs.existsSync(destDir)) {
@@ -266,7 +257,7 @@ class CustomTTAReporter implements Reporter {
             }
 
             if (attachment.contentType === 'video/webm' && attachment.path) {
-                const videoName = `video_${artifactId}.webm`;
+                const videoName = `video_${this.testCounter}.webm`;
                 const destPath = path.join('tta-report', 'videos', videoName);
                 const destDir = path.dirname(destPath);
                 if (!fs.existsSync(destDir)) {
@@ -281,7 +272,7 @@ class CustomTTAReporter implements Reporter {
             }
 
             if (attachment.name === 'trace' && attachment.path) {
-                const traceName = `trace_${artifactId}.zip`;
+                const traceName = `trace_${this.testCounter}.zip`;
                 const destPath = path.join('tta-report', 'traces', traceName);
                 const destDir = path.dirname(destPath);
                 if (!fs.existsSync(destDir)) {
