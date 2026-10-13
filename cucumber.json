@@ -1,0 +1,45 @@
+{
+    "default": {
+        "requireModule": ["tsx"],
+        "import": [
+            "src/cucumber/support/*.ts",
+            "src/cucumber/**/steps/**/*.ts"
+        ],
+        "format": ["progress-bar"],
+        "publishQuiet": true,
+        "paths": ["src/cucumber/**/features/**/*.feature"]
+    },
+    "level0": {
+        "requireModule": ["tsx"],
+        "import": [
+            "src/cucumber/support/*.ts",
+            "src/cucumber/**/steps/**/*.ts"
+        ],
+        "paths": ["src/cucumber/level-0*/features/**/*.feature"]
+    },
+    "level1": {
+        "requireModule": ["tsx"],
+        "import": [
+            "src/cucumber/support/*.ts",
+            "src/cucumber/**/steps/**/*.ts"
+        ],
+        "paths": ["src/cucumber/level-01*/features/**/*.feature"]
+    },
+    "level2": {
+        "requireModule": ["tsx"],
+        "import": [
+            "src/cucumber/support/*.ts",
+            "src/cucumber/**/steps/**/*.ts"
+        ],
+        "paths": ["src/cucumber/level-02*/features/**/*.feature"]
+    },
+
+     "datatable": {
+        "requireModule": ["tsx"],
+        "import": [
+            "src/cucumber/support/*.ts",
+            "src/cucumber/**/steps/**/*.ts"
+        ],
+        "paths": ["src/cucumber/level-02*/features/**/*.feature"]
+    }
+}
